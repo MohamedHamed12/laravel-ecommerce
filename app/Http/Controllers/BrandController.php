@@ -1,64 +1,56 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBrandRequest;
+use App\Http\Requests\UpdateBrandRequest;
+use App\Models\Brand;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $brands = Brand::orderBy('id', 'desc')->paginate(10);
+        return response()->json($brands);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreBrandRequest $request): JsonResponse
     {
-        //
+        $brand = Brand::create($request->validated());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Brand created successfully.',
+            'data' => $brand
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(Brand $brand): JsonResponse
     {
-        //
+        return response()->json($brand);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(UpdateBrandRequest $request, Brand $brand): JsonResponse
     {
-        //
+        $brand->update($request->validated());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Brand updated successfully.',
+            'data' => $brand
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy(Brand $brand): JsonResponse
     {
-        //
-    }
+        $brand->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Brand deleted successfully.'
+        ]);
     }
 }

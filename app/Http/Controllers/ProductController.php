@@ -1,64 +1,57 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $products = Product::with(['cat_info', 'sub_cat_info', 'brand'])->orderBy('id', 'desc')->paginate(10);
+        return response()->json($products);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreProductRequest $request): JsonResponse
     {
-        //
+        $product = Product::create($request->validated());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product created successfully.',
+            'data' => $product
+        ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show($id): JsonResponse
     {
-        //
+        $product = Product::with(['cat_info', 'sub_cat_info', 'brand', 'getReview'])->findOrFail($id);
+        return response()->json($product);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
-        //
+        $product->update($request->validated());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product updated successfully.',
+            'data' => $product
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy(Product $product): JsonResponse
     {
-        //
-    }
+        $product->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'Product deleted successfully.'
+        ]);
     }
 }
