@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('products')->group(function () {
