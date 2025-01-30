@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Banner;
 class BannerController extends Controller
 {
     /**
@@ -11,54 +11,56 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        $banner=Banner::orderBy('id','DESC')->paginate(10);
+        return response()->json($banner);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBannerRequest $request)
     {
-        //
+        $banner=Banner::create($request->validated());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Banner created successfully.',
+            'data' => $banner
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Banner $banner): JsonResponse
     {
-        //
+        return response()->json($banner);   
     }
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateBannerRequest $request, Banner $banner)
     {
-        //
+        $banner->update($request->validated());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Banner updated successfully.',
+            'data' => $banner
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Banner $banner)
     {
-        //
+        $banner->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Banner deleted successfully.'
+        ]);
     }
 }

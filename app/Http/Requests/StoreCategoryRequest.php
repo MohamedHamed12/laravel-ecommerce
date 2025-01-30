@@ -8,6 +8,7 @@ class StoreCategoryRequest extends FormRequest
 {
     public function authorize(): bool
     {
+        // You can add authorization logic here if needed
         return true;
     }
 
