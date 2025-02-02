@@ -7,13 +7,12 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index(): JsonResponse
     {
-        $products = Product::with(['cat_info', 'sub_cat_info', 'brand'])->orderBy('id', 'desc')->paginate(10);
+        $products = Product::with(['brand'])->orderBy('id', 'desc')->paginate(10);
         return response()->json($products);
     }
 

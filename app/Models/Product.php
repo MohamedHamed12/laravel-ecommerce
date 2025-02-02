@@ -55,13 +55,13 @@ class Product extends Model
     /**
      * Get product reviews.
      */
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(ProductReview::class, 'product_id', 'id')
-            ->with('user_info')
-            ->where('status', 'active')
-            ->orderByDesc('id');
-    }
+    // public function reviews(): HasMany
+    // {
+    //     return $this->hasMany(ProductReview::class, 'product_id', 'id')
+    //         ->with('user_info')
+    //         ->where('status', 'active')
+    //         ->orderByDesc('id');
+    // }
 
     /**
      * Get product by slug.
@@ -84,18 +84,18 @@ class Product extends Model
     /**
      * Get carts containing this product.
      */
-    public function carts(): HasMany
-    {
-        return $this->hasMany(Cart::class)->whereNotNull('order_id');
-    }
+    // public function carts(): HasMany
+    // {
+    //     return $this->hasMany(Cart::class)->whereNotNull('order_id');
+    // }
 
     /**
      * Get wishlists containing this product.
      */
-    public function wishlists(): HasMany
-    {
-        return $this->hasMany(Wishlist::class)->whereNotNull('cart_id');
-    }
+    // public function wishlists(): HasMany
+    // {
+    //     return $this->hasMany(Wishlist::class)->whereNotNull('cart_id');
+    // }
 
     /**
      * Get brand associated with the product.
