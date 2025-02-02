@@ -12,18 +12,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
-
-
-    
     public function index(): JsonResponse
     {
         $categories = Category::orderBy('id', 'desc')->paginate(10);
         return response()->json($categories);
     }
 
- public function store(StoreCategoryRequest $request): JsonResponse
+ public function store(StoreCategoryRequest $request)
     {
-        // Use the validated data from the custom request
         $category = Category::create($request->validated());
 
         return response()->json([

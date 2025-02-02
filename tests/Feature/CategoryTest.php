@@ -50,28 +50,28 @@ class CategoryTest extends TestCase
         $response->assertJsonFragment(['title' => 'New Category']);
     }
     
-    // public function test_can_delete_category()
-    // {
-    //     $category = Category::factory()->create([
-    //         'title' => 'Women\'s Fashion',
-    //         'added_by' => null,
-    //     ]);
-    //     $response = $this->deleteJson("/categories/{$category->id}");
-    //     $response->assertStatus(200);
-    // }
+    public function test_can_delete_category()
+    {
+        $category = Category::factory()->create([
+            'title' => 'Women\'s Fashion',
+            'added_by' => null,
+        ]);
+        $response = $this->deleteJson("api/categories/{$category->id}");
+        $response->assertStatus(200);
+    }
 
-    // public function test_can_update_category()
-    // {
+    public function test_can_update_category()
+    {
 
-    //  $category = Category::factory()->create([
-    //         'title' => 'Women\'s Fashion',
-    //         'added_by' => null,
-    //     ]);
+     $category = Category::factory()->create([
+            'title' => 'Women\'s Fashion',
+            'added_by' => null,
+        ]);
 
-    //     $response = $this->patchJson("/categories/{$category->id}", [
-    //         'title' => 'Updated Category',
-    //     ]);
-    //     $response->assertStatus(200);
-    //     $response->assertJsonFragment(['title' => 'Updated Category']);
-    // }
+        $response = $this->patchJson("api/categories/{$category->id}", [
+            'title' => 'Updated Category',
+        ]);
+        $response->assertStatus(200);
+        $response->assertJsonFragment(['title' => 'Updated Category']);
+    }
 }
