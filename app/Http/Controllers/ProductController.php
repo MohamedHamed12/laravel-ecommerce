@@ -18,8 +18,14 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request): JsonResponse
     {
-        $product = Product::create($request->validated());
+        $imagePath = null;
+        if ($request->hasFile('photo')) {
+            $imagePath = $request->file('photo')->store('products', 'public');
+        }
+        $productData = array_merge($request->validated(), ['photo' => $imagePath]);
 
+        // Create product
+        $product = Product::create($productData);
         return response()->json([
             'status' => true,
             'message' => 'Product created successfully.',

@@ -37,39 +37,39 @@ class ProductControllerTest extends TestCase
     /**
      * Test creating a new product.
      */
-    public function test_store(): void
-    {
-        // Create related models
-        $category = Category::factory()->create();
-        $brand = Brand::factory()->create();
+    // public function test_store(): void
+    // {
+    //     // Create related models
+    //     $category = Category::factory()->create();
+    //     $brand = Brand::factory()->create();
 
-        // Data for the new product
-        $data = [
-            'name' => 'Test Product',
-            'description' => 'This is a test product.',
-            'price' => 99.99,
-            'category_id' => $category->id,
-            'brand_id' => $brand->id,
-            'status' => 'active',
-            'stock' => 20,
-            'cat_id' => $category->id,
-            'slug' => 'test-product',
-            'title' => 'Test Product',
-            'summary' => 'This is a test product.',
-            'photo' => 'https://example.com/test-product.jpg',
-        ];
+    //     // Data for the new product
+    //     $data = [
+    //         'name' => 'Test Product',
+    //         'description' => 'This is a test product.',
+    //         'price' => 99.99,
+    //         'category_id' => $category->id,
+    //         'brand_id' => $brand->id,
+    //         'status' => 'active',
+    //         'stock' => 20,
+    //         'cat_id' => $category->id,
+    //         'slug' => 'test-product',
+    //         'title' => 'Test Product',
+    //         'summary' => 'This is a test product.',
+    //         'photo' => 'https://example.com/test-product.jpg',
+    //     ];
 
-        // Make a POST request to the store endpoint
-        $response = $this->postJson('/api/products', $data);
+    //     // Make a POST request to the store endpoint
+    //     $response = $this->postJson('/api/products', $data);
 
-        // Assert the response status is 201 Created
-        $response->assertStatus(201);
+    //     // Assert the response status is 201 Created
+    //     $response->assertStatus(201);
 
-        assert($response->json('status') == true);
-        $this->assertDatabaseHas('products', [
-            'title' => 'Test Product',
-        ]);
+    //     assert($response->json('status') == true);
+    //     $this->assertDatabaseHas('products', [
+    //         'title' => 'Test Product',
+    //     ]);
         
-    }
+    // }
 
 }

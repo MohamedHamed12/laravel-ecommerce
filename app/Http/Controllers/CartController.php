@@ -1,64 +1,37 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CartRequest;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json(Cart::with('product', 'user')->get());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(CartRequest $request)
     {
-        //
+        $cart = Cart::create($request->validated());
+        return response()->json($cart, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(Cart $cart)
     {
-        //
+        return response()->json($cart->load('product', 'user'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(CartRequest $request, Cart $cart)
     {
-        //
+        $cart->update($request->validated());
+        return response()->json($cart);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy(Cart $cart)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $cart->delete();
+        return response()->json(['message' => 'Cart item deleted successfully']);
     }
 }

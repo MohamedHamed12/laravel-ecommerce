@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\BannerController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -33,15 +33,6 @@ Route::prefix('products')->group(function () {
     Route::delete('/{product}', [ProductController::class, 'destroy']);
 });
 
-
-
-// Route::prefix('categories')->group(function () {
-//     Route::get('/', [CategoryController::class, 'index']);
-//     Route::post('/', [CategoryController::class, 'store']);
-//     Route::get('/{category}', [CategoryController::class, 'show']);
-//     Route::put('/{category}', [CategoryController::class, 'update']);
-//     Route::delete('/{category}', [CategoryController::class, 'destroy']);
-// });
 Route::prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
     Route::post('/', [CategoryController::class, 'store']); // This will be public without auth
@@ -57,3 +48,15 @@ Route::prefix('brands')->group(function () {
     Route::put('/{brand}', [BrandController::class, 'update']);
     Route::delete('/{brand}', [BrandController::class, 'destroy']);
 });
+
+Route::prefix('banner')->group(function () {
+    Route::get('/', [BannerController::class, 'index']);
+    Route::post('/', [BannerController::class, 'store']);
+    Route::get('/{banner}', [BannerController::class, 'show']);
+    
+});
+
+
+use App\Http\Controllers\CartController;
+
+Route::apiResource('carts', CartController::class);

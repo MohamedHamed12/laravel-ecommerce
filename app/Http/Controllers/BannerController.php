@@ -17,13 +17,27 @@ class BannerController extends Controller
 
     public function store(StoreBannerRequest $request): JsonResponse
     {
-        $banner=Banner::create($request->validated());
 
+
+
+         $imagePath = null;
+        if ($request->hasFile('photo')) {
+            $imagePath = $request->file('photo')->store('banners', 'public');
+        }
+        $bannerData = array_merge($request->validated(), ['photo' => $imagePath]);
+
+        // Create product
+        $banner = Banner::create($bannerData);
         return response()->json([
             'status' => true,
-            'message' => 'Banner created successfully.',
+            'message' => 'Product created successfully.',
             'data' => $banner
         ], 201);
+
+        
+
+    return response()->json(['message' => 'Banner created successfully', 'banner' => $banner], 201);
+   
     }
 
     public function show(Banner $banner): JsonResponse

@@ -24,7 +24,7 @@ class StoreProductRequest extends FormRequest
             'brand_id' => 'nullable|exists:brands,id',
             'discount' => 'nullable|numeric|min:0|max:100',
             'status' => 'required|in:active,inactive',
-            'photo' => 'nullable|string',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'size' => 'nullable|string',
             'stock' => 'required|integer|min:0',
             'is_featured' => 'nullable|boolean',

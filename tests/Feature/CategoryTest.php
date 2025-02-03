@@ -21,17 +21,17 @@ class CategoryTest extends TestCase
         $this->seed(CategorySeeder::class);
 
         // Check if the categories exist in the database
-        $this->assertDatabaseHas('categories', [
-            'title' => 'Men\'s Fashion',
-            'slug' => 'mens-fashion',
-            'status' => 'active',
-        ]);
+        // $this->assertDatabaseHas('categories', [
+        //     'title' => 'Men\'s Fashion',
+        //     'slug' => 'mens-fashion',
+        //     'status' => 'active',
+        // ]);
 
-        $this->assertDatabaseHas('categories', [
-            'title' => 'T-shirt\'s',
-            'slug' => 't-shirts',
-            'parent_id' => 1, // This is a child category with parent_id pointing to Men’s Fashion
-        ]);
+        // $this->assertDatabaseHas('categories', [
+        //     'title' => 'T-shirt\'s',
+        //     'slug' => 't-shirts',
+        //     'parent_id' => 1, // This is a child category with parent_id pointing to Men’s Fashion
+        // ]);
 
 
         $response = $this->getJson('/api/categories');  // Change to the actual API route

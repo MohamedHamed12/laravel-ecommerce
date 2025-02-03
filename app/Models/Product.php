@@ -17,6 +17,14 @@ class Product extends Model
         'is_featured', 'condition'
     ];
 
+        public function getPhotoUrlAttribute()
+    {
+        return $this->photo ? asset("storage/{$this->photo}") : null;
+    }
+
+    // Include photo_url in the JSON response
+    protected $appends = ['photo_url'];
+
     /**
      * Get parent category information.
      */
