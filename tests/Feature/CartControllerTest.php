@@ -17,15 +17,11 @@ class CartControllerTest extends TestCase
     // Test for fetching all carts
     public function test_can_get_all_carts()
     {
-        // Arrange: Create a few carts
-        // Cart::factory()->count(3)->create();
-
         // Act: Call the API endpoint to get carts
         $response = $this->getJson('/api/carts');
 
         // Assert: Check if the response is successful and contains the expected number of carts
         $response->assertStatus(Response::HTTP_OK);
-              
     }
 
     // // Test for adding a cart item

@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Cart::with('product', 'user')->get());
+        $carts = Cart::filter()->sort()->get()->paginate(10);
+        return response()->json($carts);
     }
 
     public function store(CartRequest $request)
